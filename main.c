@@ -14,55 +14,63 @@ extern MenuIndex code menu_gather[5];
 char last_operation;
 char now_operation;
 char function_index=0;
+void (*current_operation_index)();
 
 void main()
 {
+    int i=0;
     last_operation=0;
     now_operation=0;
 
     lcd_init(0);
+    config_uart(9600);
     key_init();
     interrupt_init();
     timer0_init();//相关模块初始化
-    //config_uart(9600);
 
-
+    menu0();
     while (1)
     {
         if((now_operation!=last_operation)&&
-        (last_operation==0))//按键检测变化且刚开始变化
+        ((last_operation==0)||(last_operation==4)))//按键检测变化且刚开始变化,注意滤除连续长按回报
         {
             switch (now_operation)
             {
                 case 1://短按
                 {
                     function_index=menu_gather[function_index].move_enter;
+                    //uart_send(&function_index);
                 }
                     break;
                 case 3://长按
                 {
                     function_index=menu_gather[function_index].move_esc;
+                    //uart_send(&function_index);
                 }
                     break;
                 case 2://双击
                 {
-                
+                    //uart_send(&function_index);
                 }
                     break;                    
                 case 5://正转
                 {
                     function_index=menu_gather[function_index].move_up;
+                    //uart_send(&function_index);
                 }
                     break;
                 case -5://反转
                 {
                     function_index=menu_gather[function_index].move_down;
+                    //uart_send(&function_index);
                 }
                     break;                         
                 default:
                     break;
-            }           
+            } 
+            //clear(0); 
+        current_operation_index=menu_gather[function_index].function;
+        (*current_operation_index)();                     
         }
-        menu_gather[function_index].function();
     }
 }

@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   KEY                                                               10/23/2020 17:04:10 PAGE 1   
+C51 COMPILER V9.52.0.0   KEY                                                               10/23/2020 19:11:01 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE KEY
@@ -21,7 +21,7 @@ line level    source
   11          
   12          #include "key.h"
   13          
-  14          //j局内宏变量
+  14          //局内宏变量
   15          #define KEY_SCAN_MS         1                   //扫描周期
   16          #define KEY_DESSHACKING     (20/KEY_SCAN_MS)    //消抖周期
   17          #define KEY_LONGTIME        (600/KEY_SCAN_MS)   //长按判定
@@ -62,7 +62,7 @@ line level    source
   52   1          key_o_sclick_flag=0;
   53   1      }
   54          
-C51 COMPILER V9.52.0.0   KEY                                                               10/23/2020 17:04:10 PAGE 2   
+C51 COMPILER V9.52.0.0   KEY                                                               10/23/2020 19:11:01 PAGE 2   
 
   55          /**
   56           * @description: 按键扫描函数
@@ -126,7 +126,7 @@ line level    source
  114   1      
  115   1          //按下旋转处理函数
  116   1          if(scan_result_analyze==3)
-C51 COMPILER V9.52.0.0   KEY                                                               10/23/2020 17:04:10 PAGE 3   
+C51 COMPILER V9.52.0.0   KEY                                                               10/23/2020 19:11:01 PAGE 3   
 
  117   1              analyze_result=6;
  118   1          if(scan_result_analyze==-3)
@@ -190,7 +190,7 @@ line level    source
  174   1          if(key_o_cnt>KEY_DESSHACKING)//短按启动后
  175   1          {
  176   2              //单击未双击未长按
-C51 COMPILER V9.52.0.0   KEY                                                               10/23/2020 17:04:10 PAGE 4   
+C51 COMPILER V9.52.0.0   KEY                                                               10/23/2020 19:11:01 PAGE 4   
 
  177   2              if((key_o_sclick_flag==0)&&(key_o_dclick_cnt>KEY_DCLICKTIME)&&(key_o_lclick_flag<KEY_LONGTIME))
  178   2              {

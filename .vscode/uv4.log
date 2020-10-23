@@ -1,6 +1,12 @@
 Build target 'Target 1'
-compiling main.c...
+compiling lcd.c...
 linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY100US?LCD
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CHECK?LCD
+
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_SHOW8?LCD
 
@@ -8,11 +14,8 @@ linking...
     SEGMENT: ?PR?_DRAW_DOT?LCD
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_CONFIG_UART?UART
-
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_UART_SEND?UART
 
-Program Size: data=46.0 xdata=0 code=2978
+Program Size: data=51.0 xdata=0 code=3037
 creating hex file from ".\Objects\mcu_prj"...
-".\Objects\mcu_prj" - 0 Error(s), 4 Warning(s).
+".\Objects\mcu_prj" - 0 Error(s), 5 Warning(s).

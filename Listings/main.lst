@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   MAIN                                                              10/23/2020 17:24:19 PAGE 1   
+C51 COMPILER V9.52.0.0   MAIN                                                              10/23/2020 21:25:30 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
@@ -24,68 +24,77 @@ line level    source
   14          char last_operation;
   15          char now_operation;
   16          char function_index=0;
-  17          
-  18          void main()
-  19          {
-  20   1          last_operation=0;
-  21   1          now_operation=0;
-  22   1      
-  23   1          lcd_init(0);
-  24   1          key_init();
-  25   1          interrupt_init();
-  26   1          timer0_init();//相关模块初始化
-  27   1          //config_uart(9600);
-  28   1      
-  29   1      
-  30   1          while (1)
-  31   1          {
-  32   2              if((now_operation!=last_operation)&&
-  33   2              (last_operation==0))//按键检测变化且刚开始变化
-  34   2              {
-  35   3                  switch (now_operation)
-  36   3                  {
-  37   4                      case 1://短按
-  38   4                      {
-  39   5                          function_index=menu_gather[function_index].move_enter;
-  40   5                      }
-  41   4                          break;
-  42   4                      case 3://长按
-  43   4                      {
-  44   5                          function_index=menu_gather[function_index].move_esc;
-  45   5                      }
-  46   4                          break;
-  47   4                      case 2://双击
-  48   4                      {
-  49   5                      
-  50   5                      }
-  51   4                          break;                    
-  52   4                      case 5://正转
-  53   4                      {
-  54   5                          function_index=menu_gather[function_index].move_up;
-C51 COMPILER V9.52.0.0   MAIN                                                              10/23/2020 17:24:19 PAGE 2   
+  17          void (*current_operation_index)();
+  18          
+  19          void main()
+  20          {
+  21   1          int i=0;
+  22   1          last_operation=0;
+  23   1          now_operation=0;
+  24   1      
+  25   1          lcd_init(0);
+  26   1          config_uart(9600);
+  27   1          key_init();
+  28   1          interrupt_init();
+  29   1          timer0_init();//相关模块初始化
+  30   1      
+  31   1          menu0();
+  32   1          while (1)
+  33   1          {
+  34   2              if((now_operation!=last_operation)&&
+  35   2              ((last_operation==0)||(last_operation==4)))//按键检测变化且刚开始变化,注意滤除连�
+             -��长按回报
+  36   2              {
+  37   3                  switch (now_operation)
+  38   3                  {
+  39   4                      case 1://短按
+  40   4                      {
+  41   5                          function_index=menu_gather[function_index].move_enter;
+  42   5                          //uart_send(&function_index);
+  43   5                      }
+  44   4                          break;
+  45   4                      case 3://长按
+  46   4                      {
+  47   5                          function_index=menu_gather[function_index].move_esc;
+  48   5                          //uart_send(&function_index);
+  49   5                      }
+  50   4                          break;
+  51   4                      case 2://双击
+  52   4                      {
+  53   5                          //uart_send(&function_index);
+C51 COMPILER V9.52.0.0   MAIN                                                              10/23/2020 21:25:30 PAGE 2   
 
-  55   5                      }
-  56   4                          break;
-  57   4                      case -5://反转
-  58   4                      {
-  59   5                          function_index=menu_gather[function_index].move_down;
+  54   5                      }
+  55   4                          break;                    
+  56   4                      case 5://正转
+  57   4                      {
+  58   5                          function_index=menu_gather[function_index].move_up;
+  59   5                          //uart_send(&function_index);
   60   5                      }
-  61   4                          break;                         
-  62   4                      default:
-  63   4                          break;
-  64   4                  }           
-  65   3              }
-  66   2              menu_gather[function_index].function();
-  67   2          }
-  68   1      }
+  61   4                          break;
+  62   4                      case -5://反转
+  63   4                      {
+  64   5                          function_index=menu_gather[function_index].move_down;
+  65   5                          //uart_send(&function_index);
+  66   5                      }
+  67   4                          break;                         
+  68   4                      default:
+  69   4                          break;
+  70   4                  } 
+  71   3                  //clear(0); 
+  72   3              current_operation_index=menu_gather[function_index].function;
+  73   3              (*current_operation_index)();                     
+  74   3              }
+  75   2          }
+  76   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    194    ----
+   CODE SIZE        =    217    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      3    ----
+   DATA SIZE        =      6       2
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

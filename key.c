@@ -11,7 +11,7 @@
 
 #include "key.h"
 
-//j局内宏变量
+//局内宏变量
 #define KEY_SCAN_MS         1                   //扫描周期
 #define KEY_DESSHACKING     (20/KEY_SCAN_MS)    //消抖周期
 #define KEY_LONGTIME        (600/KEY_SCAN_MS)   //长按判定

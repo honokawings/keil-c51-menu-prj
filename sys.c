@@ -38,7 +38,7 @@ void timer0_init()
 void interrupt_timer0()  interrupt 1
 {
     TH0=0xFC;
-    TL0=0X67; //1ms计时
+    TL0=0x67; //1ms计时
 
     //定时器0中断函数
     last_operation=now_operation;

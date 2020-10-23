@@ -41,7 +41,7 @@ void check()
  */
 void write_cmd(u8 cmd)
 {
-    check();
+    //check();
     E=0;
     RS=0;
     RW=0;
@@ -57,7 +57,7 @@ void write_cmd(u8 cmd)
  */
 void write_data(u8 dat)
 {
-    check();
+    //check();
     E=0;
     RS=1;
     RW=0;
@@ -144,7 +144,7 @@ void clear(u8 flag)
         set_column(0);
         for ( j = 0; j < 64; j++)//自动指向下一列
         {
-            write_data(0);//写0清空
+            write_data(0x00);//写0清空
         }   
     }    
 }
@@ -156,7 +156,7 @@ void clear(u8 flag)
  */
 void lcd_init(u8 i)
 {
-    check();
+    //check();
     set_on(1);
     clear(0);
     set_line(i);
@@ -252,7 +252,7 @@ void show_sentence(u8 line,u8 *str,u8 word_cnt,u8 method)
         }
         for (k = 0; k < (word_cnt-4); k++)
         {
-            show16((line-1)*2,16*k,2,method,str+32*k);
+            show16((line-1)*2,16*k,2,method,str+32*(k+4));
         }        
     }
 }
