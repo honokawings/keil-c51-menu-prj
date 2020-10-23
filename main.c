@@ -10,7 +10,7 @@
  */
 #include "sys.h"
 
-extern MenuIndex code menu_gather[5];
+extern MenuIndex code menu_gather[7];
 char last_operation;
 char now_operation;
 char function_index=0;
@@ -23,7 +23,7 @@ void main()
     now_operation=0;
 
     lcd_init(0);
-    config_uart(9600);
+    // config_uart(9600);
     key_init();
     interrupt_init();
     timer0_init();//相关模块初始化
@@ -39,36 +39,36 @@ void main()
                 case 1://短按
                 {
                     function_index=menu_gather[function_index].move_enter;
-                    //uart_send(&function_index);
+                    // uart_send(&function_index);//debug
                 }
                     break;
                 case 3://长按
                 {
-                    function_index=menu_gather[function_index].move_esc;
-                    //uart_send(&function_index);
+                    function_index=0;
+                    // uart_send(&function_index);//debug
                 }
                     break;
                 case 2://双击
                 {
-                    //uart_send(&function_index);
+                    function_index=menu_gather[function_index].move_esc;
+                    // uart_send(&function_index);//debug
                 }
                     break;                    
                 case 5://正转
                 {
                     function_index=menu_gather[function_index].move_up;
-                    //uart_send(&function_index);
+                    // uart_send(&function_index);//debug
                 }
                     break;
                 case -5://反转
                 {
                     function_index=menu_gather[function_index].move_down;
-                    //uart_send(&function_index);
+                    // uart_send(&function_index);//debug
                 }
                     break;                         
                 default:
                     break;
             } 
-            //clear(0); 
         current_operation_index=menu_gather[function_index].function;
         (*current_operation_index)();                     
         }

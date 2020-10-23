@@ -258,6 +258,37 @@ void show_sentence(u8 line,u8 *str,u8 word_cnt,u8 method)
 }
 
 /**
+ * @description: 全屏显示函数
+ * 
+ * @param: str 字符路径
+ * @param: method 1-反白
+ */
+void show_screen(u8 *str, u8 method)
+{
+    u8 i,j;
+    u16 k=0;
+    for(i=0 ;i<8;i++)
+    {
+        select_cs(1);
+        set_page(i);
+        set_column(0);
+        for(j=0; j<64;j++)
+        {
+            if(method) write_data(~str[k++]);
+            else    write_data(str[k++]);
+        }
+        select_cs(2);
+        set_page(i);
+        set_column(0);
+        for(j=0;j<64;j++)
+        {
+            if(method) write_data(~str[k++]);
+            else    write_data(str[k++]);
+        }
+    }
+}
+
+/**
  * @description: 按坐标绘制点
  * 
  * @param: draw_x 0-127 x轴
@@ -270,13 +301,13 @@ void draw_dot(u8 draw_x,u8 draw_y)
         select_cs(1);
         set_page(draw_y/8);
         set_column(draw_x);
-        write_data(2^(draw_y%8));
+        write_data(0x01<<(draw_y%8));
     }
     else if ((draw_x>=64)&&(draw_x<128))
     {
         select_cs(2);
         set_page(draw_y/8);
         set_column(draw_x-64);
-        write_data(2^(draw_y%8));
+        write_data(0x01<<(draw_y%8));
     }
 }

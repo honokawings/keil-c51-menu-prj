@@ -43,7 +43,10 @@ void interrupt_timer0()  interrupt 1
     //定时器0中断函数
     last_operation=now_operation;
     now_operation=key_analyze(key_scan());
-    
+    if(now_operation==4)//过滤回报率
+        now_operation=0;
+    // if(now_operation!=0)//用于debug
+    //     uart_send(&now_operation);
 }
 
 //定时器1初始化及中断
