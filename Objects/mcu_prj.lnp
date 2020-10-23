@@ -1,0 +1,9 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\key.obj",
+".\Objects\lcd.obj",
+".\Objects\menu.obj",
+".\Objects\sys.obj",
+".\Objects\uart.obj" 
+TO ".\Objects\mcu_prj" 
+PRINT(".\Listings\mcu_prj.m51") RAMSIZE(256) 

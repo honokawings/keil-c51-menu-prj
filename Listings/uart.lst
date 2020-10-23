@@ -1,0 +1,53 @@
+C51 COMPILER V9.52.0.0   UART                                                              10/23/2020 17:04:10 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE UART
+OBJECT MODULE PLACED IN .\Objects\uart.obj
+COMPILER INVOKED BY: H:\electric\Keil_v5\C51\BIN\C51.EXE uart.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\List
+                    -ings\uart.lst) TABS(2) OBJECT(.\Objects\uart.obj)
+
+line level    source
+
+   1          /**
+   2           * @file: uart.c
+   3           * @author: Honokawings (1915569481@qq.com)
+   4           * @description: 建议串口通信，裸机debug时使用
+   5           * @version 0.1
+   6           * @date: 2020-10-23 16:10:45
+   7           * 
+   8           * @copyright Copyright (c) 2020
+   9           * 
+  10           */
+  11          #include "uart.h"
+  12          
+  13          void config_uart(unsigned int baud)
+  14          {
+  15   1          SCON=0x50;
+  16   1          TMOD&=0x0f;
+  17   1          TMOD|=0x20;
+  18   1          TH1=256-(11059200/12/32)/baud;
+  19   1          TL1=TH1;
+  20   1          ET1=0;
+  21   1          TR1=1;
+  22   1      }
+  23          
+  24          void uart_send(char *str)
+  25          {
+  26   1          SBUF= *str;
+  27   1          while(!TI);
+  28   1          TI=0;
+  29   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     49    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
