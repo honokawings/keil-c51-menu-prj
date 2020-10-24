@@ -10,7 +10,7 @@
  */
 #include "sys.h"
 
-extern MenuIndex menu_gather[8];
+extern MenuIndex idata menu_gather[11];
 char last_operation;
 char now_operation;
 char function_index=0;
@@ -77,5 +77,13 @@ void main()
         current_operation_index=menu_gather[function_index].function;
         (*current_operation_index)();                     
         }
+
+        if(egg_flag==1)
+        {
+            egg_flag=0;
+            menu_egg();
+            (*current_operation_index)();
+        }
+
     }
 }

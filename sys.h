@@ -20,5 +20,6 @@ void timer1_init();
 
 extern char last_operation;
 extern char now_operation;
+extern char egg_flag;
 
 #endif

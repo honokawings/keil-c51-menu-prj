@@ -11,6 +11,9 @@
 #include "sys.h"
 #include "menu.h"
 
+int egg_cnt=0;
+char egg_flag;
+
 /**
  * @description: 中断程序初始化
  * 
@@ -40,11 +43,20 @@ void interrupt_timer0()  interrupt 1
     TH0=0xFC;
     TL0=0x67; //1ms计时
 
+
     //定时器0中断函数
     last_operation=now_operation;
     now_operation=key_analyze(key_scan());
     if(now_operation==4)//过滤回报率
+    {
+        egg_cnt++;
+        if(egg_cnt>=30)
+        {
+            egg_flag=1;
+            egg_cnt=0;
+        }
         now_operation=0;
+    }
     // if(now_operation!=0)//用于debug
     //     uart_send(&now_operation);
 }
