@@ -14,7 +14,7 @@
 //局内宏变量
 #define KEY_SCAN_MS         1                   //扫描周期
 #define KEY_DESSHACKING     (20/KEY_SCAN_MS)    //消抖周期
-#define KEY_LONGTIME        (600/KEY_SCAN_MS)   //长按判定
+#define KEY_LONGTIME        (500/KEY_SCAN_MS)   //长按判定
 #define KEY_DCLICKTIME      (150/KEY_SCAN_MS)   //双击判定
 #define KEY_LONG_REPEAT     (200/KEY_SCAN_MS)   //连续长按判定
 

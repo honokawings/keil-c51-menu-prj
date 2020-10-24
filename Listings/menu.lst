@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 00:37:51 PAGE 1   
+C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 15:52:46 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MENU
@@ -62,7 +62,7 @@ line level    source
   41          {0x10,0x60,0x02,0x0C,0xC0,0x00,0xF8,0x88,0x88,0x88,0xFF,0x88,0x88,0xA8,0x18,0x00,0x04,0x04,0x7C,0x03,0x80,
              -0x60,0x1F,0x80,
   42          0x43,0x2C,0x10,0x28,0x46,0x81,0x80,0x00},/*"波",3*/
-C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 00:37:51 PAGE 2   
+C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 15:52:46 PAGE 2   
 
   43          
   44          {0x00,0x02,0x02,0xC2,0x02,0x02,0x02,0xFE,0x82,0x82,0x82,0x82,0x82,0x02,0x00,0x00,0x40,0x40,0x40,0x7F,0x40,
@@ -126,7 +126,7 @@ line level    source
   78          {0x00,0x00,0x00,0x00,0xFC,0xFF,0x00,0x00,0x00,0x80,0x81,0xC4,0xCC,0xCC,0x66,0x66,0x66,0x36,0x30,0x38,0x18,
              -0x18,0x0C,0x08},
   79          {0x00,0x00,0x00,0xFF,0x20,0x20,0xFC,0x00,0xF8,0x88,0xF8,0x00,0xF0,0x10,0xE0,0x00,0xE0,0xA0,0xE0,0x00,0xFE,
-C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 00:37:51 PAGE 3   
+C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 15:52:46 PAGE 3   
 
              -0x20,0x50,0x88},
   80          {0x04,0xF0,0x50,0x50,0xF0,0x00,0x70,0x40,0x60,0x40,0x70,0x06,0x74,0x00,0xF8,0x10,0x70,0x00,0x78,0x48,0xF8,
@@ -179,18 +179,18 @@ line level    source
  104          
  105          //正弦参数 128点 7精度
  106          static u8 code sin_dot[128]=
- 107          {0x3F,0x42,0x45,0x48,0x4B,0x4E,0x51,0x54,0x57,0x5A,0x5D,0x60,0x62,0x65,0x67,0x6A
- 108          ,0x6C,0x6E,0x70,0x72,0x74,0x75,0x77,0x78,0x7A,0x7B,0x7C,0x7D,0x7D,0x7E,0x7E,0x7E
- 109          ,0x7E,0x7E,0x7E,0x7E,0x7D,0x7D,0x7C,0x7B,0x7A,0x78,0x77,0x75,0x74,0x72,0x70,0x6E
- 110          ,0x6C,0x6A,0x67,0x65,0x62,0x60,0x5D,0x5A,0x57,0x54,0x51,0x4E,0x4B,0x48,0x45,0x42
- 111          ,0x3F,0x3C,0x39,0x36,0x33,0x30,0x2D,0x2A,0x27,0x24,0x21,0x1E,0x1C,0x19,0x17,0x14
- 112          ,0x12,0x10,0x0E,0x0C,0x0A,0x09,0x07,0x06,0x04,0x03,0x02,0x01,0x01,0x00,0x00,0x00
- 113          ,0x00,0x00,0x00,0x00,0x01,0x01,0x02,0x03,0x04,0x06,0x07,0x09,0x0A,0x0C,0x0E,0x10
- 114          ,0x12,0x14,0x17,0x19,0x1C,0x1E,0x21,0x24,0x27,0x2A,0x2D,0x30,0x33,0x36,0x39,0x3C};
+ 107          {0x1F,0x20,0x22,0x23,0x25,0x26,0x27,0x29,0x2A,0x2C,0x2D,0x2E,0x30,0x31,0x32,0x33,
+ 108          0x34,0x35,0x36,0x37,0x38,0x39,0x3A,0x3B,0x3B,0x3C,0x3C,0x3D,0x3D,0x3D,0x3D,0x3D,
+ 109          0x3E,0x3D,0x3D,0x3D,0x3D,0x3D,0x3C,0x3C,0x3B,0x3B,0x3A,0x39,0x38,0x37,0x36,0x35,
+ 110          0x34,0x33,0x32,0x31,0x30,0x2E,0x2D,0x2C,0x2A,0x29,0x27,0x26,0x25,0x23,0x22,0x20,
+ 111          0x1F,0x1D,0x1B,0x1A,0x18,0x17,0x16,0x14,0x13,0x11,0x10,0x0F,0x0D,0x0C,0x0B,0x0A,
+ 112          0x09,0x08,0x07,0x06,0x05,0x04,0x03,0x02,0x02,0x01,0x01,0x00,0x00,0x00,0x00,0x00,
+ 113          0x00,0x00,0x00,0x00,0x00,0x00,0x01,0x01,0x02,0x02,0x03,0x04,0x05,0x06,0x07,0x08,
+ 114          0x09,0x0A,0x0B,0x0C,0x0D,0x0F,0x10,0x11,0x13,0x14,0x16,0x17,0x18,0x1A,0x1B,0x1D};
  115          
  116          void menu0()
  117          {
-C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 00:37:51 PAGE 4   
+C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 15:52:46 PAGE 4   
 
  118   1      
  119   1          show_screen(str_picture[0],0);
@@ -242,7 +242,7 @@ line level    source
  165   1          clear(0);
  166   1          for(x=0;x<128;x++)
  167   1          {
- 168   2              y=127-sin_dot[x]/2;
+ 168   2              y=127-sin_dot[x];
  169   2              draw_dot(x,y);
  170   2          }
  171   1      }
@@ -254,13 +254,13 @@ line level    source
  177   1          for(x=0;x<32;x++)
  178   1          {
  179   2              y=32-x;
-C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 00:37:51 PAGE 5   
+C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 15:52:46 PAGE 5   
 
  180   2              draw_dot(x,y);
  181   2          }
  182   1          for(x=32;x<64;x++)
  183   1          {
- 184   2              y=32-x;
+ 184   2              y=x-32;
  185   2              draw_dot(x,y);
  186   2          }
  187   1          for(x=64;x<96;x++)
@@ -270,144 +270,167 @@ line level    source
  191   2          }
  192   1          for(x=96;x<128;x++)
  193   1          {
- 194   2              y=160-x;
+ 194   2              y=159-x;
  195   2              draw_dot(x,y);
  196   2          }
  197   1      }
  198          
- 199          //手动构建菜单
- 200          // u8 index;
- 201          // u8 move_up;
- 202          // u8 move_down;
- 203          // u8 move_enter;
- 204          // u8 move_esc;
- 205          //记得更改菜单项总数 此处和main处
- 206          MenuIndex code menu_gather[7]=
- 207          {
- 208              {0,0,0,1,0,(*menu0)},
- 209              {1,4,2,5,0,(*menu1)},
- 210              {2,1,3,6,0,(*menu2)},
- 211              {3,2,4,3,0,(*menu3)},
- 212              {4,3,1,4,0,(*menu4)},
- 213              {5,5,5,5,1,(*menu5)},
- 214              {6,6,6,6,2,(*menu6)}
- 215          };
- 216          
- 217          //注释部分为待拓展结构，慎删除
- 218          //C51构建树形结构不好处理内存分配问题
- 219          // /**
- 220          //  * @description: 创建新的同级下一节点
- 221          //  * 
- 222          //  * @param: head 此级菜单的头节点
- 223          //  * @param: function 新节点功能
- 224          //  * @param: name 新节点名称
- 225          //  * @return: menu_t* 返回创建的节点
- 226          //  */
- 227          // menu_t *add_same_node(menu_t *head ,void *function,u8 function_id , u8 *name )
- 228          // {
- 229          //     menu_t *p=NULL,*pr=head;
- 230          //     p=(menu_t *)malloc(sizeof(menu_t));//创建空节点
- 231          
- 232          //     if(head==NULL)  //头节点为空，则创建头节点
- 233          //     {
- 234          //         head=p;
- 235          //         p->id=0;         
- 236          //     }
- 237          //     else    //头节点不为空
- 238          //     {
- 239          //         u8 i=0;
- 240          //         while (pr->same_down!=NULL) //寻找并转到同级菜单的最后节点
- 241          //         {
-C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 00:37:51 PAGE 6   
+ 199          void menu7()//实时渲染波形-方波
+ 200          {
+ 201   1          u8 x;
+ 202   1          clear(0);
+ 203   1          for(x=0;x<32;x++)
+ 204   1          {
+ 205   2              draw_dot(x,32);
+ 206   2          }
+ 207   1          for(x=32;x<64;x++)
+ 208   1          {
+ 209   2              draw_dot(x,8);
+ 210   2          }
+ 211   1          for(x=64;x<96;x++)
+ 212   1          {
+ 213   2              draw_dot(x,32);
+ 214   2          }
+ 215   1          for(x=96;x<128;x++)
+ 216   1          {
+ 217   2              draw_dot(x,8);
+ 218   2          }
+ 219   1      }
+ 220          
+ 221          //手动构建菜单
+ 222          // u8 index;
+ 223          // u8 move_up;
+ 224          // u8 move_down;
+ 225          // u8 move_enter;
+ 226          // u8 move_esc;
+ 227          //记得更改菜单项总数 此处和main处
+ 228          MenuIndex menu_gather[8]=
+ 229          {
+ 230              {0,0,0,1,0,(*menu0)},
+ 231              {1,4,2,5,0,(*menu1)},
+ 232              {2,1,3,6,0,(*menu2)},
+ 233              {3,2,4,7,0,(*menu3)},
+ 234              {4,3,1,4,0,(*menu4)},
+ 235              {5,5,5,5,1,(*menu5)},
+ 236              {6,6,6,6,2,(*menu6)},
+ 237              {7,7,7,7,3,(*menu7)}
+ 238          };
+ 239          
+ 240          //注释部分为待拓展结构，慎删除
+ 241          //C51构建树形结构不好处理内存分配问题
+C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 15:52:46 PAGE 6   
 
- 242          //             i++;
- 243          //             pr=pr->same_down;
- 244          //         }
- 245          //         pr->same_down=p;//创建同级节点
- 246          //         p->same_up=pr;
- 247          //         p->father=head->father;//和头节点拥有同样的父节点
- 248          //         p->id=i;
- 249          //     }
- 250          //     p->function=function;//补充新节点的信息
- 251          //     p->function_id=function_id;
- 252          //     p->menu_name=name;
- 253          //     p->son=NULL;
- 254          //     p->same_down=NULL;
- 255          //     return p;//返回新建的节点
- 256          // }
- 257          
- 258          // /**
- 259          //  * @description: 创建子节点
- 260          //  * 
- 261          //  * @param: head 当前列表头节点
- 262          //  * @param: num 列表要创建子节点的节点编号
- 263          //  * @param: function 节点函数功能
- 264          //  * @param: name 节点名称
- 265          //  * @return: menu_t* 返回该位置的子节点或者新节点
- 266          //  */
- 267          // menu_t *add_son_node(menu_t *head, u8 num, void *function,u8 function_id ,u8 *name )
- 268          // {
- 269          //     u8 i;
- 270          //     menu_t *pr=head;
- 271              
- 272          //     for(i=0;i<num;i++)//遍历寻址
- 273          //     {
- 274          //         if(pr->same_down!=NULL)
- 275          //         {
- 276          //             pr=pr->same_down;
- 277          //         }
- 278          //     }
- 279          
- 280          //     if(pr->son!=NULL)//是否存在子节点
- 281          //     {
- 282          //         pr=pr->son;
- 283          //     }
- 284          //     else
- 285          //     {
- 286          //         menu_t *p=NULL;
- 287          //         p=(menu_t *)malloc(sizeof(menu_t)); //创建空节点
- 288          
- 289          //         pr->son=p;
- 290          //         p->father=pr;
- 291          //         p->id=0;
- 292          //         p->same_up=NULL;
- 293          //         p->same_down=NULL;
- 294          //         p->son=NULL;
- 295          //         p->function=function;
- 296          //         p->function_id=function_id;
- 297          //         p->menu_name=name;
- 298          //         return p;//返回新创建的子节点
- 299          //     }
- 300          //     return pr;//返回已存在的子节点
- 301          // }
+ 242          // /**
+ 243          //  * @description: 创建新的同级下一节点
+ 244          //  * 
+ 245          //  * @param: head 此级菜单的头节点
+ 246          //  * @param: function 新节点功能
+ 247          //  * @param: name 新节点名称
+ 248          //  * @return: menu_t* 返回创建的节点
+ 249          //  */
+ 250          // menu_t *add_same_node(menu_t *head ,void *function,u8 function_id , u8 *name )
+ 251          // {
+ 252          //     menu_t *p=NULL,*pr=head;
+ 253          //     p=(menu_t *)malloc(sizeof(menu_t));//创建空节点
+ 254          
+ 255          //     if(head==NULL)  //头节点为空，则创建头节点
+ 256          //     {
+ 257          //         head=p;
+ 258          //         p->id=0;         
+ 259          //     }
+ 260          //     else    //头节点不为空
+ 261          //     {
+ 262          //         u8 i=0;
+ 263          //         while (pr->same_down!=NULL) //寻找并转到同级菜单的最后节点
+ 264          //         {
+ 265          //             i++;
+ 266          //             pr=pr->same_down;
+ 267          //         }
+ 268          //         pr->same_down=p;//创建同级节点
+ 269          //         p->same_up=pr;
+ 270          //         p->father=head->father;//和头节点拥有同样的父节点
+ 271          //         p->id=i;
+ 272          //     }
+ 273          //     p->function=function;//补充新节点的信息
+ 274          //     p->function_id=function_id;
+ 275          //     p->menu_name=name;
+ 276          //     p->son=NULL;
+ 277          //     p->same_down=NULL;
+ 278          //     return p;//返回新建的节点
+ 279          // }
+ 280          
+ 281          // /**
+ 282          //  * @description: 创建子节点
+ 283          //  * 
+ 284          //  * @param: head 当前列表头节点
+ 285          //  * @param: num 列表要创建子节点的节点编号
+ 286          //  * @param: function 节点函数功能
+ 287          //  * @param: name 节点名称
+ 288          //  * @return: menu_t* 返回该位置的子节点或者新节点
+ 289          //  */
+ 290          // menu_t *add_son_node(menu_t *head, u8 num, void *function,u8 function_id ,u8 *name )
+ 291          // {
+ 292          //     u8 i;
+ 293          //     menu_t *pr=head;
+ 294              
+ 295          //     for(i=0;i<num;i++)//遍历寻址
+ 296          //     {
+ 297          //         if(pr->same_down!=NULL)
+ 298          //         {
+ 299          //             pr=pr->same_down;
+ 300          //         }
+ 301          //     }
  302          
- 303          // /**
-C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 00:37:51 PAGE 7   
+ 303          //     if(pr->son!=NULL)//是否存在子节点
+C51 COMPILER V9.52.0.0   MENU                                                              10/24/2020 15:52:46 PAGE 7   
 
- 304          //  * @description: 菜单结构建立
- 305          //  * 
- 306          //  * @param: head 头节点 往下创建选项
- 307          //  */
- 308          // void menu_make(menu_t *head)
- 309          // {
- 310          //     menu_t *first_page=NULL;
- 311          //     init_mempool(first_page,5*sizeof(menu_t));
- 312          //     first_page=(menu_t *)malloc(sizeof(menu_t));
- 313          
- 314          //     head=add_same_node(head,menu0,0,"页0");
- 315          //     add_son_node(head,0,menu1,1,"页1选项1");
- 316          //     add_same_node(first_page,menu2,2,"页1选项2");
- 317          //     add_same_node(first_page,menu3,3,"页1选项3");
- 318          //     add_same_node(first_page,menu4,4,"页1选项4");
- 319          // }
+ 304          //     {
+ 305          //         pr=pr->son;
+ 306          //     }
+ 307          //     else
+ 308          //     {
+ 309          //         menu_t *p=NULL;
+ 310          //         p=(menu_t *)malloc(sizeof(menu_t)); //创建空节点
+ 311          
+ 312          //         pr->son=p;
+ 313          //         p->father=pr;
+ 314          //         p->id=0;
+ 315          //         p->same_up=NULL;
+ 316          //         p->same_down=NULL;
+ 317          //         p->son=NULL;
+ 318          //         p->function=function;
+ 319          //         p->function_id=function_id;
+ 320          //         p->menu_name=name;
+ 321          //         return p;//返回新创建的子节点
+ 322          //     }
+ 323          //     return pr;//返回已存在的子节点
+ 324          // }
+ 325          
+ 326          // /**
+ 327          //  * @description: 菜单结构建立
+ 328          //  * 
+ 329          //  * @param: head 头节点 往下创建选项
+ 330          //  */
+ 331          // void menu_make(menu_t *head)
+ 332          // {
+ 333          //     menu_t *first_page=NULL;
+ 334          //     init_mempool(first_page,5*sizeof(menu_t));
+ 335          //     first_page=(menu_t *)malloc(sizeof(menu_t));
+ 336          
+ 337          //     head=add_same_node(head,menu0,0,"页0");
+ 338          //     add_son_node(head,0,menu1,1,"页1选项1");
+ 339          //     add_same_node(first_page,menu2,2,"页1选项2");
+ 340          //     add_same_node(first_page,menu3,3,"页1选项3");
+ 341          //     add_same_node(first_page,menu4,4,"页1选项4");
+ 342          // }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    447    ----
-   CONSTANT SIZE    =   1792    ----
+   CODE SIZE        =    526    ----
+   CONSTANT SIZE    =   1736    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----       4
+   DATA SIZE        =     64       5
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

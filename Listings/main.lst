@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   MAIN                                                              10/24/2020 00:26:53 PAGE 1   
+C51 COMPILER V9.52.0.0   MAIN                                                              10/24/2020 15:57:26 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
@@ -20,7 +20,7 @@ line level    source
   10           */
   11          #include "sys.h"
   12          
-  13          extern MenuIndex code menu_gather[7];
+  13          extern MenuIndex menu_gather[8];
   14          char last_operation;
   15          char now_operation;
   16          char function_index=0;
@@ -29,68 +29,73 @@ line level    source
   19          void main()
   20          {
   21   1          int i=0;
-  22   1          last_operation=0;
-  23   1          now_operation=0;
-  24   1      
-  25   1          lcd_init(0);
-  26   1          // config_uart(9600);
-  27   1          key_init();
-  28   1          interrupt_init();
-  29   1          timer0_init();//相关模块初始化
-  30   1      
-  31   1          menu0();
-  32   1          while (1)
-  33   1          {
-  34   2              if((now_operation!=last_operation)&&
-  35   2              ((last_operation==0)||(last_operation==4)))//按键检测变化且刚开始变化,注意滤除连�
+  22   1          char buff_index;
+  23   1          last_operation=0;
+  24   1          now_operation=0;
+  25   1      
+  26   1          lcd_init(0);
+  27   1          // config_uart(9600);
+  28   1          key_init();
+  29   1          interrupt_init();
+  30   1          timer0_init();//相关模块初始化
+  31   1      
+  32   1          menu0();
+  33   1          while (1)
+  34   1          {
+  35   2              if((now_operation!=last_operation)&&
+  36   2              ((last_operation==0)||(last_operation==4)))//按键检测变化且刚开始变化,注意滤除连�
              -��长按回报
-  36   2              {
-  37   3                  switch (now_operation)
-  38   3                  {
-  39   4                      case 1://短按
-  40   4                      {
-  41   5                          function_index=menu_gather[function_index].move_enter;
-  42   5                          // uart_send(&function_index);//debug
-  43   5                      }
-  44   4                          break;
-  45   4                      case 3://长按
-  46   4                      {
-  47   5                          function_index=0;
-  48   5                          // uart_send(&function_index);//debug
-  49   5                      }
-  50   4                          break;
-  51   4                      case 2://双击
-  52   4                      {
-  53   5                          function_index=menu_gather[function_index].move_esc;
-C51 COMPILER V9.52.0.0   MAIN                                                              10/24/2020 00:26:53 PAGE 2   
+  37   2              {
+  38   3                  switch (now_operation)
+  39   3                  {
+  40   4                      case 1://短按
+  41   4                      {
+  42   5                          function_index=menu_gather[function_index].move_enter;
+  43   5                          // uart_send(&function_index);//debug
+  44   5                      }
+  45   4                          break;
+  46   4                      case 3://长按
+  47   4                      {
+  48   5                          function_index=0;
+  49   5                          // uart_send(&function_index);//debug
+  50   5                      }
+  51   4                          break;
+  52   4                      case 2://双击
+  53   4                      {
+C51 COMPILER V9.52.0.0   MAIN                                                              10/24/2020 15:57:26 PAGE 2   
 
-  54   5                          // uart_send(&function_index);//debug
-  55   5                      }
-  56   4                          break;                    
-  57   4                      case 5://正转
-  58   4                      {
-  59   5                          function_index=menu_gather[function_index].move_up;
-  60   5                          // uart_send(&function_index);//debug
-  61   5                      }
-  62   4                          break;
-  63   4                      case -5://反转
-  64   4                      {
-  65   5                          function_index=menu_gather[function_index].move_down;
-  66   5                          // uart_send(&function_index);//debug
-  67   5                      }
-  68   4                          break;                         
-  69   4                      default:
-  70   4                          break;
-  71   4                  } 
-  72   3              current_operation_index=menu_gather[function_index].function;
-  73   3              (*current_operation_index)();                     
-  74   3              }
-  75   2          }
-  76   1      }
+  54   5                          buff_index=function_index;//交互体验，返回后再进入会记忆之前的选项
+  55   5                          function_index=menu_gather[function_index].move_esc;
+  56   5                          //防止首页时按esc导致自锁
+  57   5                          if(buff_index!=0)
+  58   5                              menu_gather[function_index].move_enter=buff_index;
+  59   5                          // uart_send(&function_index);//debug
+  60   5                      }
+  61   4                          break;                    
+  62   4                      case 5://正转
+  63   4                      {
+  64   5                          function_index=menu_gather[function_index].move_up;
+  65   5                          // uart_send(&function_index);//debug
+  66   5                      }
+  67   4                          break;
+  68   4                      case -5://反转
+  69   4                      {
+  70   5                          function_index=menu_gather[function_index].move_down;
+  71   5                          // uart_send(&function_index);//debug
+  72   5                      }
+  73   4                          break;                         
+  74   4                      default:
+  75   4                          break;
+  76   4                  } 
+  77   3              current_operation_index=menu_gather[function_index].function;
+  78   3              (*current_operation_index)();                     
+  79   3              }
+  80   2          }
+  81   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    218    ----
+   CODE SIZE        =    155    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

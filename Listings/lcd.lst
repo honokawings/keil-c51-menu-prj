@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   LCD                                                               10/24/2020 00:07:50 PAGE 1   
+C51 COMPILER V9.52.0.0   LCD                                                               10/24/2020 15:52:05 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LCD
@@ -11,7 +11,7 @@ line level    source
    1          /**
    2           * @file: lcd.c
    3           * @author: Honokawings (1915569481@qq.com)
-   4           * @description: lcd驱动源代码
+   4           * @description: lcd驱动源代码，无字库驱动，型号较老
    5           * @version 0.1
    6           * @date: 2020-10-20 23:10:54
    7           * 
@@ -30,212 +30,212 @@ line level    source
   20          static void set_line(u8 line);
   21          static void set_on(u8 flag);
   22          
-  23          /**
-  24           * @description: 检测忙
-  25           * 
-  26           */
-  27          void check()
-  28          {
-  29   1          RS=0;
-  30   1          RW=1;
-  31   1          data_pin=0x00;
-  32   1          E=1;
-  33   1          while (busy);
-  34   1          E=0;
-  35   1      }
-  36          
-  37          /**
-  38           * @description: 写命令
-  39           * 
-  40           * @param: cmd 
-  41           */
-  42          void write_cmd(u8 cmd)
-  43          {
-  44   1          //check();
-  45   1          E=0;
-  46   1          RS=0;
-  47   1          RW=0;
-  48   1          data_pin=cmd;
-  49   1          E=1;
-  50   1          E=0;
-  51   1      }
-  52          
-  53          /**
-  54           * @description: 写数据
-C51 COMPILER V9.52.0.0   LCD                                                               10/24/2020 00:07:50 PAGE 2   
+  23          // /**
+  24          //  * @description: 精准延时
+  25          //  * 
+  26          //  * @param: n 
+  27          //  */
+  28          // void delay_50us(u16 n)
+  29          // {
+  30          // u16 i,j;
+  31          // for(i=n;i>0;i--)
+  32          // for(j=6;j>0;j--);
+  33          // }
+  34          
+  35          /**
+  36           * @description: 检测忙
+  37           * 
+  38           */
+  39          void check()
+  40          {
+  41   1          RS=0;
+  42   1          RW=1;
+  43   1          data_pin=0x00;
+  44   1          E=1;
+  45   1          while (busy);
+  46   1          E=0;
+  47   1      }
+  48          
+  49          /**
+  50           * @description: 写命令
+  51           * 
+  52           * @param: cmd 
+  53           */
+  54          void write_cmd(u8 cmd)
+C51 COMPILER V9.52.0.0   LCD                                                               10/24/2020 15:52:05 PAGE 2   
 
-  55           * 
-  56           * @param: dat 
-  57           */
-  58          void write_data(u8 dat)
-  59          {
-  60   1          //check();
-  61   1          E=0;
-  62   1          RS=1;
-  63   1          RW=0;
-  64   1          data_pin=dat;
-  65   1          E=1;
-  66   1          E=0;
-  67   1      }
-  68          
-  69          /**
-  70           * @description: 选择屏
-  71           * 
-  72           * @param: n 0-全选 1-左屏 2-右屏
-  73           */
-  74          void select_cs(u8 n)
-  75          {
-  76   1          switch (n)
-  77   1          {
-  78   2          case 0: CS1=1; CS2=1; break; //高电平选中
-  79   2          case 1: CS1=1; CS2=0; break; //cs1左屏
-  80   2          case 2: CS1=0; CS2=1; break; //cs2右屏
-  81   2          }
+  55          {
+  56   1          check();
+  57   1          E=0;
+  58   1          RS=0;
+  59   1          RW=0;
+  60   1          data_pin=cmd;
+  61   1          E=1;
+  62   1          E=0;
+  63   1      }
+  64          
+  65          /**
+  66           * @description: 读取数据，主要用于精准绘制
+  67           * 
+  68           * @return: u8 
+  69           */
+  70          u8 read_data()
+  71          {
+  72   1          u8 data_read=0;
+  73   1          check();
+  74   1          RS=1;
+  75   1          RW=1;
+  76   1          data_pin=0xff;
+  77   1          E=1;
+  78   1          // delay_50us(1);//保持高电平读取
+  79   1          data_read = data_pin;
+  80   1          E=0;
+  81   1          return data_read;
   82   1      }
   83          
   84          /**
-  85           * @description: 设置页
+  85           * @description: 写数据
   86           * 
-  87           * @param: page 0-7
+  87           * @param: dat 
   88           */
-  89          void set_page(u8 page)
+  89          void write_data(u8 dat)
   90          {
-  91   1          page=page&0x07; //0000 0111
-  92   1          page=page|0xb8; //1011 1000
-  93   1          write_cmd(page);//1011 1xxx
-  94   1      }
-  95          
-  96          /**
-  97           * @description: 设置列
-  98           * 
-  99           * @param: column 0-63
- 100           */
- 101          void set_column(u8 column)
- 102          {
- 103   1          column=column&0x3f; //0011 1111
- 104   1          column=column|0x40; //0100 0000
- 105   1          write_cmd(column);  //01xx xxxx
- 106   1      }
- 107          
- 108          /**
- 109           * @description: 起始行设置
- 110           *               对应液晶屏最上一行的显示RAM的行号
- 111           *                  
- 112           * @param: line 0-63
- 113           */
- 114          void set_line(u8 line)
- 115          {
- 116   1          line=line&0x3f; //0011 1111
-C51 COMPILER V9.52.0.0   LCD                                                               10/24/2020 00:07:50 PAGE 3   
+  91   1          check();
+  92   1          E=0;
+  93   1          RS=1;
+  94   1          RW=0;
+  95   1          data_pin=dat;
+  96   1          E=1;
+  97   1          E=0;
+  98   1      }
+  99          
+ 100          /**
+ 101           * @description: 选择屏
+ 102           * 
+ 103           * @param: n 0-全选 1-左屏 2-右屏
+ 104           */
+ 105          void select_cs(u8 n)
+ 106          {
+ 107   1          switch (n)
+ 108   1          {
+ 109   2          case 0: CS1=1; CS2=1; break; //高电平选中
+ 110   2          case 1: CS1=1; CS2=0; break; //cs1左屏
+ 111   2          case 2: CS1=0; CS2=1; break; //cs2右屏
+ 112   2          }
+ 113   1      }
+ 114          
+ 115          /**
+ 116           * @description: 设置页
+C51 COMPILER V9.52.0.0   LCD                                                               10/24/2020 15:52:05 PAGE 3   
 
- 117   1          line=line|0xc0; //1100 0000
- 118   1          write_cmd(line);//11xx xxxx
- 119   1      }
- 120          
- 121          /**
- 122           * @description: 屏幕开关
- 123           * 
- 124           * @param: flag 1-开启 0关闭
- 125           */
- 126          void set_on(u8 flag)
- 127          {
- 128   1          flag=flag|0x3e;
- 129   1          write_cmd(flag);    //0011 111x
- 130   1      }
- 131          
- 132          /**
- 133           * @description: 清屏
- 134           * 
- 135           * @param: flag 0--全屏，1--左屏，2--右屏
- 136           */
- 137          void clear(u8 flag)
- 138          {
- 139   1          u8 i,j;
- 140   1          select_cs(flag);//置为0时左右屏同时清空
- 141   1          for ( i = 0; i < 8; i++)
- 142   1          {
- 143   2              set_page(i);
- 144   2              set_column(0);
- 145   2              for ( j = 0; j < 64; j++)//自动指向下一列
- 146   2              {
- 147   3                  write_data(0x00);//写0清空
- 148   3              }   
- 149   2          }    
+ 117           * 
+ 118           * @param: page 0-7
+ 119           */
+ 120          void set_page(u8 page)
+ 121          {
+ 122   1          page=page&0x07; //0000 0111
+ 123   1          page=page|0xb8; //1011 1000
+ 124   1          write_cmd(page);//1011 1xxx
+ 125   1      }
+ 126          
+ 127          /**
+ 128           * @description: 设置列
+ 129           * 
+ 130           * @param: column 0-63
+ 131           */
+ 132          void set_column(u8 column)
+ 133          {
+ 134   1          column=column&0x3f; //0011 1111
+ 135   1          column=column|0x40; //0100 0000
+ 136   1          write_cmd(column);  //01xx xxxx
+ 137   1      }
+ 138          
+ 139          /**
+ 140           * @description: 起始行设置
+ 141           *               对应液晶屏最上一行的显示RAM的行号
+ 142           *                  
+ 143           * @param: line 0-63
+ 144           */
+ 145          void set_line(u8 line)
+ 146          {
+ 147   1          line=line&0x3f; //0011 1111
+ 148   1          line=line|0xc0; //1100 0000
+ 149   1          write_cmd(line);//11xx xxxx
  150   1      }
  151          
  152          /**
- 153           * @description: 初始化lcd
+ 153           * @description: 屏幕开关
  154           * 
- 155           * @param: i 起始列
+ 155           * @param: flag 1-开启 0关闭
  156           */
- 157          void lcd_init(u8 i)
+ 157          void set_on(u8 flag)
  158          {
- 159   1          //check();
- 160   1          set_on(1);
- 161   1          clear(0);
- 162   1          set_line(i);
- 163   1      }
- 164          
- 165          
- 166          /**
- 167           * @description: 16*16汉字显示
- 168           * 
- 169           * @param: page 选择页
- 170           * @param: column 选择列
- 171           * @param: screen 选择片 1-左屏 2-右屏
- 172           * @param: method 1-反白 0-正常
- 173           * @param: str 显示的字符
- 174           */
- 175          void show16(u8 page,u8 column,u8 screen,u8 method,u8 *str)
- 176          {
- 177   1          u8 i,j;
- 178   1          j=0;
-C51 COMPILER V9.52.0.0   LCD                                                               10/24/2020 00:07:50 PAGE 4   
+ 159   1          flag=flag|0x3e;
+ 160   1          write_cmd(flag);    //0011 111x
+ 161   1      }
+ 162          
+ 163          /**
+ 164           * @description: 清屏
+ 165           * 
+ 166           * @param: flag 0--全屏，1--左屏，2--右屏
+ 167           */
+ 168          void clear(u8 flag)
+ 169          {
+ 170   1          u8 i,j;
+ 171   1          select_cs(flag);//置为0时左右屏同时清空
+ 172   1          for ( i = 0; i < 8; i++)
+ 173   1          {
+ 174   2              set_page(i);
+ 175   2              set_column(0);
+ 176   2              for ( j = 0; j < 64; j++)//自动指向下一列
+ 177   2              {
+ 178   3                  write_data(0x00);//写0清空
+C51 COMPILER V9.52.0.0   LCD                                                               10/24/2020 15:52:05 PAGE 4   
 
- 179   1          select_cs(screen);
- 180   1      
- 181   1          set_page(page);//上半部分（页）
- 182   1          set_column(column);
- 183   1          for ( i = 0; i < 16; i++)
- 184   1          {
- 185   2              if(method) write_data(~str[j++]);//反白显示
- 186   2              else    write_data(str[j++]);
- 187   2          }
- 188   1      
- 189   1          set_page(page+1);//下半部分（页）
- 190   1          set_column(column);
- 191   1          for ( i = 0; i < 16; i++)
- 192   1          {
- 193   2              if(method) write_data(~str[j++]);//反白显示
- 194   2              else    write_data(str[j++]);
- 195   2          }
- 196   1      }
- 197          
- 198          /**
- 199           * @description: 8*16字符显示
- 200           * 
- 201           * @param: page 选择页
- 202           * @param: column 选择列
- 203           * @param: screen 选择片 1-左屏 2-右屏
- 204           * @param: method 1-反白 0-正常
- 205           * @param: str 显示的字符
- 206           */
- 207          void show8(u8 page,u8 column,u8 screen,u8 method,u8 *str)
- 208          {
- 209   1          u8 i,j;
- 210   1          j=0;
- 211   1          select_cs(screen);
- 212   1      
- 213   1          set_page(page);
- 214   1          set_column(column);
- 215   1          for ( i = 0; i < 8; i++)//上半部分
- 216   1          {
- 217   2              if(method) write_data(~str[j++]);//反白显示
- 218   2              else    write_data(str[j++]);
- 219   2          }
- 220   1          set_page(page+1);
+ 179   3              }   
+ 180   2          }    
+ 181   1      }
+ 182          
+ 183          /**
+ 184           * @description: 初始化lcd
+ 185           * 
+ 186           * @param: i 起始列
+ 187           */
+ 188          void lcd_init(u8 i)
+ 189          {
+ 190   1          //check();
+ 191   1          set_on(1);
+ 192   1          clear(0);
+ 193   1          set_line(i);
+ 194   1      }
+ 195          
+ 196          
+ 197          /**
+ 198           * @description: 16*16汉字显示
+ 199           * 
+ 200           * @param: page 选择页
+ 201           * @param: column 选择列
+ 202           * @param: screen 选择片 1-左屏 2-右屏
+ 203           * @param: method 1-反白 0-正常
+ 204           * @param: str 显示的字符
+ 205           */
+ 206          void show16(u8 page,u8 column,u8 screen,u8 method,u8 *str)
+ 207          {
+ 208   1          u8 i,j;
+ 209   1          j=0;
+ 210   1          select_cs(screen);
+ 211   1      
+ 212   1          set_page(page);//上半部分（页）
+ 213   1          set_column(column);
+ 214   1          for ( i = 0; i < 16; i++)
+ 215   1          {
+ 216   2              if(method) write_data(~str[j++]);//反白显示
+ 217   2              else    write_data(str[j++]);
+ 218   2          }
+ 219   1      
+ 220   1          set_page(page+1);//下半部分（页）
  221   1          set_column(column);
- 222   1          for ( i = 0; i < 8; i++)//下半部分
+ 222   1          for ( i = 0; i < 16; i++)
  223   1          {
  224   2              if(method) write_data(~str[j++]);//反白显示
  225   2              else    write_data(str[j++]);
@@ -243,98 +243,134 @@ line level    source
  227   1      }
  228          
  229          /**
- 230           * @description: 显示一行文字
+ 230           * @description: 8*16字符显示
  231           * 
- 232           * @param: line 1-4文字所在行数
- 233           * @param: str  
- 234           * @param: word_cnt 文字数（16*16）
+ 232           * @param: page 选择页
+ 233           * @param: column 选择列
+ 234           * @param: screen 选择片 1-左屏 2-右屏
  235           * @param: method 1-反白 0-正常
- 236           */
- 237          void show_sentence(u8 line,u8 *str,u8 word_cnt,u8 method)
- 238          {
- 239   1          u8 i,j,k;
- 240   1          if(word_cnt<=4)//左半页显示
-C51 COMPILER V9.52.0.0   LCD                                                               10/24/2020 00:07:50 PAGE 5   
+ 236           * @param: str 显示的字符
+ 237           */
+ 238          void show8(u8 page,u8 column,u8 screen,u8 method,u8 *str)
+ 239          {
+ 240   1          u8 i,j;
+C51 COMPILER V9.52.0.0   LCD                                                               10/24/2020 15:52:05 PAGE 5   
 
- 241   1          {
- 242   2              for (i = 0; i < word_cnt; i++)
- 243   2              {
- 244   3                  show16((line-1)*2,16*i,1,method,str+32*i);
- 245   3              }
- 246   2          }
- 247   1          else//双页显示
- 248   1          {
- 249   2              for (j = 0; j < 4; j++)
- 250   2              {
- 251   3                  show16((line-1)*2,16*j,1,method,str+32*j);
- 252   3              }
- 253   2              for (k = 0; k < (word_cnt-4); k++)
- 254   2              {
- 255   3                  show16((line-1)*2,16*k,2,method,str+32*(k+4));
- 256   3              }        
+ 241   1          j=0;
+ 242   1          select_cs(screen);
+ 243   1      
+ 244   1          set_page(page);
+ 245   1          set_column(column);
+ 246   1          for ( i = 0; i < 8; i++)//上半部分
+ 247   1          {
+ 248   2              if(method) write_data(~str[j++]);//反白显示
+ 249   2              else    write_data(str[j++]);
+ 250   2          }
+ 251   1          set_page(page+1);
+ 252   1          set_column(column);
+ 253   1          for ( i = 0; i < 8; i++)//下半部分
+ 254   1          {
+ 255   2              if(method) write_data(~str[j++]);//反白显示
+ 256   2              else    write_data(str[j++]);
  257   2          }
  258   1      }
  259          
  260          /**
- 261           * @description: 全屏显示函数
+ 261           * @description: 显示一行文字
  262           * 
- 263           * @param: str 字符路径
- 264           * @param: method 1-反白
- 265           */
- 266          void show_screen(u8 *str, u8 method)
- 267          {
- 268   1          u8 i,j;
- 269   1          u16 k=0;
- 270   1          for(i=0 ;i<8;i++)
- 271   1          {
- 272   2              select_cs(1);
- 273   2              set_page(i);
- 274   2              set_column(0);
- 275   2              for(j=0; j<64;j++)
- 276   2              {
- 277   3                  if(method) write_data(~str[k++]);
- 278   3                  else    write_data(str[k++]);
- 279   3              }
- 280   2              select_cs(2);
- 281   2              set_page(i);
- 282   2              set_column(0);
- 283   2              for(j=0;j<64;j++)
- 284   2              {
- 285   3                  if(method) write_data(~str[k++]);
- 286   3                  else    write_data(str[k++]);
- 287   3              }
+ 263           * @param: line 1-4文字所在行数
+ 264           * @param: str  
+ 265           * @param: word_cnt 文字数（16*16）
+ 266           * @param: method 1-反白 0-正常
+ 267           */
+ 268          void show_sentence(u8 line,u8 *str,u8 word_cnt,u8 method)
+ 269          {
+ 270   1          u8 i,j,k;
+ 271   1          if(word_cnt<=4)//左半页显示
+ 272   1          {
+ 273   2              for (i = 0; i < word_cnt; i++)
+ 274   2              {
+ 275   3                  show16((line-1)*2,16*i,1,method,str+32*i);
+ 276   3              }
+ 277   2          }
+ 278   1          else//双页显示
+ 279   1          {
+ 280   2              for (j = 0; j < 4; j++)
+ 281   2              {
+ 282   3                  show16((line-1)*2,16*j,1,method,str+32*j);
+ 283   3              }
+ 284   2              for (k = 0; k < (word_cnt-4); k++)
+ 285   2              {
+ 286   3                  show16((line-1)*2,16*k,2,method,str+32*(k+4));
+ 287   3              }        
  288   2          }
  289   1      }
  290          
  291          /**
- 292           * @description: 按坐标绘制点
+ 292           * @description: 全屏显示函数
  293           * 
- 294           * @param: draw_x 0-127 x轴
- 295           * @param: draw_y 0-63 y轴
+ 294           * @param: str 字符路径
+ 295           * @param: method 1-反白
  296           */
- 297          void draw_dot(u8 draw_x,u8 draw_y)
+ 297          void show_screen(u8 *str, u8 method)
  298          {
- 299   1          if(draw_x<=63)
- 300   1          {
- 301   2              select_cs(1);
- 302   2              set_page(draw_y/8);
-C51 COMPILER V9.52.0.0   LCD                                                               10/24/2020 00:07:50 PAGE 6   
+ 299   1          u8 i,j;
+ 300   1          u16 k=0;
+ 301   1          for(i=0 ;i<8;i++)
+ 302   1          {
+C51 COMPILER V9.52.0.0   LCD                                                               10/24/2020 15:52:05 PAGE 6   
 
- 303   2              set_column(draw_x);
- 304   2              write_data(0x01<<(draw_y%8));
- 305   2          }
- 306   1          else if ((draw_x>=64)&&(draw_x<128))
- 307   1          {
- 308   2              select_cs(2);
- 309   2              set_page(draw_y/8);
- 310   2              set_column(draw_x-64);
- 311   2              write_data(0x01<<(draw_y%8));
- 312   2          }
- 313   1      }
+ 303   2              select_cs(1);
+ 304   2              set_page(i);
+ 305   2              set_column(0);
+ 306   2              for(j=0; j<64;j++)
+ 307   2              {
+ 308   3                  if(method) write_data(~str[k++]);
+ 309   3                  else    write_data(str[k++]);
+ 310   3              }
+ 311   2              select_cs(2);
+ 312   2              set_page(i);
+ 313   2              set_column(0);
+ 314   2              for(j=0;j<64;j++)
+ 315   2              {
+ 316   3                  if(method) write_data(~str[k++]);
+ 317   3                  else    write_data(str[k++]);
+ 318   3              }
+ 319   2          }
+ 320   1      }
+ 321          
+ 322          /**
+ 323           * @description: 按坐标绘制点，这个函数问题在于没法不影响同一页同一列的点
+ 324           *               除非加上读取数据的函数，但是读取数据的函数工作不正常 
+ 325           * @param: draw_x 0-127 x轴
+ 326           * @param: draw_y 0-63 y轴
+ 327           */
+ 328          void draw_dot(u8 draw_x,u8 draw_y)
+ 329          {
+ 330   1          // u8 last_data=0;
+ 331   1          if(draw_x<=63)
+ 332   1          {
+ 333   2              select_cs(1);
+ 334   2              set_page(draw_y/8);
+ 335   2              set_column(draw_x);
+ 336   2              // read_data();//空读
+ 337   2              // last_data=read_data();
+ 338   2              write_data(0x01<<(draw_y%8));
+ 339   2          }
+ 340   1          else if ((draw_x>=64)&&(draw_x<128))
+ 341   1          {
+ 342   2              select_cs(2);
+ 343   2              set_page(draw_y/8);
+ 344   2              set_column(draw_x-64);
+ 345   2              // read_data();//空读
+ 346   2              // last_data=read_data();
+ 347   2              write_data(0x01<<(draw_y%8));
+ 348   2          }
+ 349   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    821    ----
+   CODE SIZE        =    849    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

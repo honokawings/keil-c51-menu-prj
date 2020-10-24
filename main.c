@@ -10,7 +10,7 @@
  */
 #include "sys.h"
 
-extern MenuIndex code menu_gather[7];
+extern MenuIndex menu_gather[8];
 char last_operation;
 char now_operation;
 char function_index=0;
@@ -19,6 +19,7 @@ void (*current_operation_index)();
 void main()
 {
     int i=0;
+    char buff_index;
     last_operation=0;
     now_operation=0;
 
@@ -50,7 +51,11 @@ void main()
                     break;
                 case 2://双击
                 {
+                    buff_index=function_index;//交互体验，返回后再进入会记忆之前的选项
                     function_index=menu_gather[function_index].move_esc;
+                    //防止首页时按esc导致自锁
+                    if(buff_index!=0)
+                        menu_gather[function_index].move_enter=buff_index;
                     // uart_send(&function_index);//debug
                 }
                     break;                    

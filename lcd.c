@@ -1,7 +1,7 @@
 /**
  * @file: lcd.c
  * @author: Honokawings (1915569481@qq.com)
- * @description: lcd驱动源代码
+ * @description: lcd驱动源代码，无字库驱动，型号较老
  * @version 0.1
  * @date: 2020-10-20 23:10:54
  * 
@@ -19,6 +19,18 @@ static void set_page(u8 page);
 static void set_column(u8 column);
 static void set_line(u8 line);
 static void set_on(u8 flag);
+
+// /**
+//  * @description: 精准延时
+//  * 
+//  * @param: n 
+//  */
+// void delay_50us(u16 n)
+// {
+// u16 i,j;
+// for(i=n;i>0;i--)
+// for(j=6;j>0;j--);
+// }
 
 /**
  * @description: 检测忙
@@ -41,7 +53,7 @@ void check()
  */
 void write_cmd(u8 cmd)
 {
-    //check();
+    check();
     E=0;
     RS=0;
     RW=0;
@@ -51,13 +63,32 @@ void write_cmd(u8 cmd)
 }
 
 /**
+ * @description: 读取数据，主要用于精准绘制
+ * 
+ * @return: u8 
+ */
+u8 read_data()
+{
+    u8 data_read=0;
+    check();
+    RS=1;
+    RW=1;
+    data_pin=0xff;
+    E=1;
+    // delay_50us(1);//保持高电平读取
+    data_read = data_pin;
+    E=0;
+    return data_read;
+}
+
+/**
  * @description: 写数据
  * 
  * @param: dat 
  */
 void write_data(u8 dat)
 {
-    //check();
+    check();
     E=0;
     RS=1;
     RW=0;
@@ -289,18 +320,21 @@ void show_screen(u8 *str, u8 method)
 }
 
 /**
- * @description: 按坐标绘制点
- * 
+ * @description: 按坐标绘制点，这个函数问题在于没法不影响同一页同一列的点
+ *               除非加上读取数据的函数，但是读取数据的函数工作不正常 
  * @param: draw_x 0-127 x轴
  * @param: draw_y 0-63 y轴
  */
 void draw_dot(u8 draw_x,u8 draw_y)
 {
+    // u8 last_data=0;
     if(draw_x<=63)
     {
         select_cs(1);
         set_page(draw_y/8);
         set_column(draw_x);
+        // read_data();//空读
+        // last_data=read_data();
         write_data(0x01<<(draw_y%8));
     }
     else if ((draw_x>=64)&&(draw_x<128))
@@ -308,6 +342,8 @@ void draw_dot(u8 draw_x,u8 draw_y)
         select_cs(2);
         set_page(draw_y/8);
         set_column(draw_x-64);
+        // read_data();//空读
+        // last_data=read_data();
         write_data(0x01<<(draw_y%8));
     }
 }
